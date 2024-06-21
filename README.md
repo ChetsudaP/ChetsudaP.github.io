@@ -1,2 +1,2 @@
 # ChetsudaP.github.io
-byChetsuda
+By Chetsuda Phothiboon
