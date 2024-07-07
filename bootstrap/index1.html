@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Carousel Template for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/carousel/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
+
+    <header>
+        <nav class="navbar navbar-expand-md fixed-top">
+          <a class="navbar-brand" href="#">Home</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+    <style>
+        h1{
+            font-size: 300%
+        }
+        body {
+            background-color: rgb(255, 253, 241);
+          }
+        .jumbotron {
+            background-image: url('pic02.jpg'); 
+            background-size: cover;
+            background-position: center;
+            padding: 200px 0;
+            text-align: center;
+            color: #ffffff; 
+            font-family: "Times New Roman", Times, serif;
+          }
+        .col-sm-4{
+            font-family: "Times New Roman", Times, serif;
+            text-align: center;
+            color: #614a38; 
+        }
+        .circular-image{
+            width: 200px; 
+            height: 200px; 
+            border-radius: 50%; /* Makes the image circular */
+            object-fit: cover; /* Ensures the image covers the entire circle */
+            margin-bottom: 20px; /* Optional: Adds space below each image */
+            margin-top: 20px;
+        }  
+        .navbar-expand-md{
+            background-color: #0c0722; 
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff; 
+        }
+        .navbar-brand {
+            color: #ffffff ;
+        }
+        
+    </style>
+
+  </head>
+
+
+<div class="jumbotron text-center">
+  <h1>Discover Your Perfect Style!</h1>
+  <p>Forge your brilliant path and shine brightly along the way</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+        <img src="oldMoney.jpg" width="200" height="300" class="circular-image">
+        <h3>Old Money Elegance</h3>
+        <p>Radiate grace and poise, embodying deep traditions and cultural heritage. Value discretion, refined tastes, and a timeless sense of social status.</p>
+    </div>
+    <div class="col-sm-4">
+        <img src="street.jpg" width="200" height="300" class="circular-image">
+        <h3>Street Chic</h3>
+        <p>Own your individuality with vibrant urban flair. Be a trendsetter, blending bold, eclectic styles and cultural influences into your distinctive look.</p>
+    </div>
+    <div class="col-sm-4">
+        <img src="sweet.jpg" width="200" height="300" class="circular-image">
+        <h3>Sweet Whimsy</h3>
+        <p>Embrace charm and innocence with a playful twist. Opt for soft colors, delicate fabrics. Let your style reflect a love for all things cute and endearing.</p>
+    </div>
+  </div>
+</div>
