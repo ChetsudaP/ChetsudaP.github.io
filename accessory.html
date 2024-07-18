@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> 
     <title>Car Accessories</title>
     <style>
@@ -24,24 +31,46 @@
 </head>
 <body>
     <h1>Car Accessories</h1>
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Click here to add accessories
+    </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Select Products</h1>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >x</button>
+        </div>
+        <div class="modal-body">
+            <select id="accessory-select">
+                <option value="10">Car Cover</option>
+                <option value="20">Seat Covers</option>
+                <option value="30">Phone Holder</option>
+            </select>
+            <input type="number" id="amount-input" min="1" value="1">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="addItem()" >Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
  
-    <h3>Add Accessory</h3>
-    <select id="accessory-select">
-        <option value="10">Car Cover</option>
-        <option value="20">Seat Covers</option>
-        <option value="30">Phone Holder</option>
-        <!-- Add more options here -->
-    </select>
-    <input type="number" id="amount-input" min="1" value="1">
-    <button class="add-button" onclick="addItem()">Add</button>
- 
- 
+    <br><br/>
+
     <h2>Product List</h2>
     <table id="product-list">
         <tr>
             <th>Accessory</th>
             <th>Amount</th>
             <th>Price</th>
+            <th>Action</th>
         </tr>
     </table>
     
@@ -52,57 +81,68 @@
  
     
         <script>
-        function addItem() {
-            //var accessorySelect = document.getElementById("accessory-select");
-            //var selectedAccessory = accessorySelect.options[accessorySelect.selectedIndex].text;
-            //var selectedAccessoryValue = accessorySelect.options[accessorySelect.selectedIndex].value;
-            //var amountInput = document.getElementById("amount-input");
-            //var amount = amountInput.value;
-            //var accessoryTable = document.getElementById("accessory-table");
-            //var price = parseFloat(selectedAccessoryValue)
-            //var productTable = document.getElementById("product-list");
 
-            //var grossPrice = document.getElementById("gross-price");
-            //var totalVat= document.getElementById("total-vat");
-            //var totalPrice = document.getElementById("total-price");
-            
-            //var row = productTable.insertRow(-1);
-            //var accessoryCell = row.insertCell(0);
-            //var amountCell = row.insertCell(1);
-            //var priceCell = row.insertCell(2);
-            
+        var quotationData = [];
+
+        function addItem() {
+       
             var accessoryOption = $("#accessory-select").val();
             var optionText = $("#accessory-select option:selected").text();
-            var amount = $("#amount-input").val()
-            var productTable = $("#product-list")
-            
+            var amount = parseInt($("#amount-input").val()); // Parse the amount as an integer
+            var productTable = $("#product-list");
 
+            var price = amount * accessoryOption; // Calculate the price
+            
+            // Create a new row
             var row = $("<tr></tr>").appendTo(productTable);
-    
-            // Inserting cells into the newly created row
-            var accessoryCell = $("<td></td>").text(optionText).appendTo(row);
-            var amountCell = $("<td></td>").text(amount).appendTo(row);
-            var priceCell = $("<td></td>").text(amount*accessoryOption).appendTo(row);
-            
-            
-            var grossPrice = $("#gross-price")
-            var totalVat = $("#total-vat");
-            var totalPrice = $("#total-price");
+            $("<td></td>").text(optionText).appendTo(row); // Accessory
+            $("<td></td>").text(amount).appendTo(row); // Amount
+            $("<td></td>").text("$" + price.toFixed(2)).appendTo(row); // Price
+            $("<td></td>").html('<button type="button" class="btn btn-danger" onclick="deleteItem(this)">Delete</button>').appendTo(row); // Delete button
 
-            
+            // Store the quotation data for later use
+            quotationData.push({
+                accessory: optionText,
+                amount: amount,
+                price: price
+            });
 
-            //accessoryCell.innerHTML = accessoryCell;
-            //amount.innerHTML = amount;
-            //price.innerHTML = "$" + (price * amount);
-            
-            //grossPrice.innerHTML = "$" + (parseFloat(grossPrice.innerHTML.substring(1)) + (price * amount));
-            //totalVat.innerHTML = "$" + (parseFloat(totalVat.innerHTML.substring(1)) + (price * amount)*0.07).toFixed(2);
-            //totalPrice.innerHTML = "$" + (parseFloat(totalPrice.innerHTML.substring(1)) + (price * amount)*1.07).toFixed(2);
-            grossPrice.html("$" + (parseFloat(grossPrice.text().substring(1))+(accessoryOption*amount)).toFixed(2));
-            totalVat.html("$" + (parseFloat(totalVat.text().substring(1))+(accessoryOption*amount * 0.07)).toFixed(2));
-            totalPrice.html("$" + (parseFloat(totalPrice.text().substring(1))+(accessoryOption*amount) * 1.07).toFixed(2))
+            updatePrices(); // Update the total prices
+          
         }
 
+        function deleteItem(button) {
+            var row = $(button).closest("tr"); // Find the closest <tr> element
+            var index = row.index(); // Get the index of the row in the table
+            row.remove(); // Remove the row from the table
+            quotationData.splice(index - 1, 1); // Remove the corresponding data from quotationData array (index - 1 because of the table header row)
+            updatePrices(); // Update the total prices
+        }
+
+        function updatePrices() {
+            var grossPrice = 0;
+            var totalVat = 0;
+
+            // Calculate the total prices
+            $.each(quotationData, function(index, item) {
+                grossPrice += item.price;
+                totalVat += item.price * 0.07;
+            });
+
+             // Update the HTML elements with the calculated prices
+             if (quotationData.length === 0) {
+                $("#gross-price").text("$0");
+                $("#total-vat").text("$0");
+                $("#total-price").text("$0");
+            } else {
+                $("#gross-price").text("$" + grossPrice.toFixed(2));
+                $("#total-vat").text("$" + totalVat.toFixed(2));
+                $("#total-price").text("$" + (grossPrice + totalVat).toFixed(2));
+            }
+
+            console.log(quotationData)
+
+        }
  
     </script>
 </body>
